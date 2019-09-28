@@ -43,7 +43,8 @@ class AttendanceView(APIView):
 class StudentView(APIView):
     def get(self, request):
         print("roll no is -------------> ",request.data.get('rollno'))
-        rollno = request.data.get('rollno')
+        # rollno = request.data.get('rollno')
+        rollno = request.GET["rollno"]
         student = Student.objects.get(rollno = rollno)
         # print("studet is ------------------------>",student.name)
         sections = student.section_set.all()
