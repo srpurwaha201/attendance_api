@@ -49,4 +49,10 @@ class StudentView(APIView):
         sections = student.section_set.all()
         studentserializer = StudentSerializer(student)
         sectionserializer = SectionSerializer(sections, many=True)
+        for i in sectionserializer.data:
+            total = len(Attendance.objects.filter(timetable__section__slot = i['slot']))
+            present = len(student.attendance_set.all().filter(timetable__section__slot = i['slot']))
+            i['total'] = total
+            i['present'] = present
+
         return Response({"Student":studentserializer.data, "Sections":sectionserializer.data})
