@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Attendance, Timetable, Student
-from .serializers import AttendanceSerializer, SectionSerializer, StudentSerializer
+from .serializers import AttendanceSerializer, SectionSerializer, StudentSerializer, TimetableSerializer
 
 class AttendanceView(APIView):
     def get(self, request):
@@ -57,3 +57,23 @@ class StudentView(APIView):
             i['present'] = present
 
         return Response({"Student":studentserializer.data, "Sections":sectionserializer.data})
+
+class TimetableView(APIView):
+    def get(self, request):
+        email = request.GET['email']
+        student = Student.objects.get(email=email)
+        sections = student.section_set.all()
+        # studentserializer = StudentSerializer(student)
+        # sectionserializer = SectionSerializer(sections, many=True)
+        response = {"Monday":[], "Tuesday":[], "Wednesday":[], "Thursday":[], "Friday":[]}
+        for i in sections:
+            # print(i)
+            timetables = i.timetable_set.all()
+            timetableserializer = TimetableSerializer(timetables, many=True)
+            for j in timetableserializer.data:
+                # print(j)
+                response[j['day']].append(j)
+
+        for _, value in response.items():
+            value.sort(key=lambda item:item['startTime'])
+        return Response(response)
