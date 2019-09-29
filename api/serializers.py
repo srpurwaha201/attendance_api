@@ -9,10 +9,12 @@ from .models import Student, Subject, Teacher, Section, Attendance, Timetable
 class StudentSerializer(serializers.Serializer):
     rollno = serializers.CharField()
     name = serializers.CharField()
-    
+    email = serializers.EmailField()
+
+
     class Meta:
         model = Student
-        fields = ['rollno','name']
+        fields = ['rollno','name','email']
 
 class SubejctSerializer(serializers.Serializer):
     code = serializers.CharField()
