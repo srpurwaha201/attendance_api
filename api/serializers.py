@@ -25,9 +25,10 @@ class SubejctSerializer(serializers.Serializer):
 
 class TeacherSerializer(serializers.Serializer):
     name = serializers.CharField()
+    email = serializers.EmailField()
     class Meta:
         model = Teacher
-        fields = ['name']
+        fields = ['name', 'email']
 
 class SectionSerializer(serializers.Serializer):
     subject = SubejctSerializer( read_only=True)

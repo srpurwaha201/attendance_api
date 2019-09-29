@@ -8,6 +8,7 @@ class Student(models.Model):
 
 class Teacher(models.Model):
     name = models.CharField(max_length=50, null=False)
+    email = models.EmailField()
 
 class Subject(models.Model):
     code = models.CharField(max_length=50, primary_key=True)
