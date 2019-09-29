@@ -42,10 +42,10 @@ class AttendanceView(APIView):
 
 class StudentView(APIView):
     def get(self, request):
-        print("roll no is -------------> ",request.data.get('rollno'))
+        # print("roll no is -------------> ",request.data.get('rollno'))
         # rollno = request.data.get('rollno')
-        rollno = request.GET["rollno"]
-        student = Student.objects.get(rollno = rollno)
+        email = request.GET["email"]
+        student = Student.objects.get(email = email)
         # print("studet is ------------------------>",student.name)
         sections = student.section_set.all()
         studentserializer = StudentSerializer(student)
