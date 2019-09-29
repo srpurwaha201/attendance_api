@@ -23,9 +23,23 @@ class Section(models.Model):
     teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE)
 
 
+
+
 class Timetable(models.Model):
+    Mon = "Monday"
+    Tue = "Tuesday"
+    Wed = "Wednesday"
+    Thur = "Thursday"
+    Fri = "Friday"
+    DAY_CHOICES = [
+        (Mon,"Monday"),
+        (Tue,"Tuesday"),
+        (Wed,"Wednesday"),
+        (Thur,"Thursday"),
+        (Fri,"Friday")
+    ]
     section = models.ForeignKey(Section, null=False,on_delete=models.CASCADE)
-    day = models.CharField(max_length=10, null=False)
+    day = models.CharField(max_length=20, choices = DAY_CHOICES, default=Mon)
     startTime = models.TimeField()
     endTime = models.TimeField()
     location = models.CharField(max_length = 50)
