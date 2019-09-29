@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Attendance, Timetable, Student
-from .serializers import AttendanceSerializer, SectionSerializer, StudentSerializer, TimetableSerializer
+from .models import Attendance, Timetable, Student, Teacher, Section
+from .serializers import AttendanceSerializer, SectionSerializer, StudentSerializer, TimetableSerializer, TeacherSerializer
 
 class AttendanceView(APIView):
     def get(self, request):
@@ -77,3 +77,14 @@ class TimetableView(APIView):
         for _, value in response.items():
             value.sort(key=lambda item:item['startTime'])
         return Response(response)
+
+class SectionStudentView(APIView):
+    def get(self, request):
+        email = request.GET['email']
+        teacher = Teacher.objects.get(email=email)
+        teacherserializer = TeacherSerializer(teacher)
+        section = teacher.section_set.all().filter(slot = request.GET['slot'])[0]
+        sectionserializer = SectionSerializer(section)
+        students = section.students.all()
+        studentsserializer = StudentSerializer(students, many=True)
+        return Response({"Teacher": teacherserializer.data, "Section": sectionserializer.data, "Students":studentsserializer.data})
