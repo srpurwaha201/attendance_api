@@ -3,6 +3,7 @@ from django.db import models
 class Student(models.Model):
     rollno = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=50, null=False)
+    email = models.EmailField()
 
 
 class Teacher(models.Model):
@@ -26,6 +27,7 @@ class Timetable(models.Model):
     day = models.CharField(max_length=10, null=False)
     startTime = models.TimeField()
     endTime = models.TimeField()
+    location = models.CharField(max_length = 50)
 
 class Attendance(models.Model):
     timetable = models.ForeignKey(Timetable,on_delete=models.CASCADE)
