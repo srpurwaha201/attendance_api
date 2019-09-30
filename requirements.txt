@@ -6,7 +6,6 @@ dj-database-url==0.5.0
 Django==2.2.5
 django-heroku==0.3.1
 djangorestframework==3.10.3
-drf-firebase-auth==0.0.4
 firebase-admin==3.0.0
 google-api-core==1.14.2
 google-api-python-client==1.7.11
