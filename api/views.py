@@ -91,3 +91,25 @@ class SectionStudentView(APIView):
         students = section.students.all()
         studentsserializer = StudentSerializer(students, many=True)
         return Response({"Teacher": teacherserializer.data, "Section": sectionserializer.data, "Students":studentsserializer.data})
+
+
+class TeacherTimetableView(APIView):
+    # authentication_classes = [FirebaseAuthentication]
+    def get(self, request):
+        email = request.GET['email']
+        teacher = Teacher.objects.get(email=email)
+        sections = teacher.section_set.all()
+        # studentserializer = StudentSerializer(student)
+        # sectionserializer = SectionSerializer(sections, many=True)
+        response = {"Monday":[], "Tuesday":[], "Wednesday":[], "Thursday":[], "Friday":[]}
+        for i in sections:
+            # print(i)
+            timetables = i.timetable_set.all()
+            timetableserializer = TimetableSerializer(timetables, many=True)
+            for j in timetableserializer.data:
+                # print(j)
+                response[j['day']].append(j)
+
+        for _, value in response.items():
+            value.sort(key=lambda item:item['startTime'])
+        return Response(response)

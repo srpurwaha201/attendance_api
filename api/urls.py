@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import AttendanceView, StudentView, TimetableView, SectionStudentView
+from .views import AttendanceView, StudentView, TimetableView, SectionStudentView, TeacherTimetableView
 
 
 app_name = "attendances"
@@ -11,4 +11,5 @@ urlpatterns = [
     path('student/', StudentView.as_view()),
     path('timetable/', TimetableView.as_view()),
     path('section_students/', SectionStudentView.as_view())
+    path('teacher/timetable', TeacherTimetableView.as_view())
 ]
