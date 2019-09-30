@@ -7,6 +7,7 @@ from .models import Attendance, Timetable, Student, Teacher, Section
 from .serializers import AttendanceSerializer, SectionSerializer, StudentSerializer, TimetableSerializer, TeacherSerializer
 
 class AttendanceView(APIView):
+    authentication_classes = [FirebaseAuthentication]
     def get(self, request):
         attendances = Attendance.objects.all()
         # the many param informs the serializer that it will be serializing more than a single article.
@@ -62,6 +63,7 @@ class StudentView(APIView):
         return Response({"Student":studentserializer.data, "Sections":sectionserializer.data})
 
 class TimetableView(APIView):
+    authentication_classes = [FirebaseAuthentication]
     def get(self, request):
         email = request.GET['email']
         student = Student.objects.get(email=email)
@@ -82,6 +84,7 @@ class TimetableView(APIView):
         return Response(response)
 
 class SectionStudentView(APIView):
+    authentication_classes = [FirebaseAuthentication]
     def get(self, request):
         email = request.GET['email']
         teacher = Teacher.objects.get(email=email)
@@ -94,7 +97,7 @@ class SectionStudentView(APIView):
 
 
 class TeacherTimetableView(APIView):
-    # authentication_classes = [FirebaseAuthentication]
+    authentication_classes = [FirebaseAuthentication]
     def get(self, request):
         email = request.GET['email']
         teacher = Teacher.objects.get(email=email)
