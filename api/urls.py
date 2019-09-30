@@ -10,6 +10,6 @@ urlpatterns = [
     path('attendances/', AttendanceView.as_view()),
     path('student/', StudentView.as_view()),
     path('timetable/', TimetableView.as_view()),
-    path('section_students/', SectionStudentView.as_view())
+    path('section_students/', SectionStudentView.as_view()),
     path('teacher/timetable', TeacherTimetableView.as_view())
 ]
