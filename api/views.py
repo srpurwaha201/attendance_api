@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from drf_firebase_auth.authentication import FirebaseAuthentication
 
 from .models import Attendance, Timetable, Student, Teacher, Section
 from .serializers import AttendanceSerializer, SectionSerializer, StudentSerializer, TimetableSerializer, TeacherSerializer
@@ -41,6 +42,8 @@ class AttendanceView(APIView):
         return Response({"success":""})
 
 class StudentView(APIView):
+    authentication_classes = [FirebaseAuthentication]
+    # permission_classes = [IsAuthenticated]
     def get(self, request):
         # print("roll no is -------------> ",request.data.get('rollno'))
         # rollno = request.data.get('rollno')
