@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from drf_firebase_auth.authentication import FirebaseAuthentication
+# from drf_firebase_auth.authentication import FirebaseAuthentication
 
 from .models import Attendance, Timetable, Student, Teacher, Section
 from .serializers import AttendanceSerializer, SectionSerializer, StudentSerializer, TimetableSerializer, TeacherSerializer
@@ -93,7 +93,7 @@ class SectionStudentView(APIView):
         sectionserializer = SectionSerializer(section)
         students = section.students.all()
         studentsserializer = StudentSerializer(students, many=True)
-        return Response({"Teacher": teacherserializer.data, "Section": sectionserializer.data, "Students":studentsserializer.data})
+        return Response({"Section": sectionserializer.data, "Students":studentsserializer.data})
 
 
 class TeacherTimetableView(APIView):
