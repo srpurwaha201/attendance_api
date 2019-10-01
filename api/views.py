@@ -97,7 +97,6 @@ class SectionStudentView(APIView):
 
 
 class TeacherTimetableView(APIView):
-    # authentication_classes = [FirebaseAuthentication]
     def get(self, request):
         email = request.GET['email']
         teacher = Teacher.objects.get(email=email)
