@@ -122,7 +122,7 @@ DRF_FIREBASE_AUTH = {
     # verify that JWT has not been revoked
     'FIREBASE_CHECK_JWT_REVOKED': True,
     # require that firebase user.email_verified is True
-    'FIREBASE_AUTH_EMAIL_VERIFICATION': False
+    'FIREBASE_AUTH_EMAIL_VERIFICATION': True
 }
 
 # Internationalization
