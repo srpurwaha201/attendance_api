@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    # 'drf_firebase_auth',
+    'drf_firebase_auth',
 ]
 
 MIDDLEWARE = [
